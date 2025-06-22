@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Time Tracker</h1>
+
+  <form id="logForm">
+    <label>Category:</label>
+    <select id="category">
+      <option>Work</option>
+      <option>Pro Bono Work</option>
+      <option>Personal Project</option>
+      <option>Personal Care</option>
+      <option>Language Learning</option>
+      <option>Career Improvement</option>
+    </select>
+
+    <label>Project Notes (optional):</label>
+    <input type="text" id="notes" placeholder="Project name, task..." />
+
+    <div class="time-date-row">
+      <div class="input-group">
+        <label>Date:</label>
+        <input type="date" id="date" required />
+      </div>
+      <div class="input-group">
+        <label>Hours:</label>
+        <input type="number" id="hours" min="0" max="23" value="0" />
+      </div>
+      <div class="input-group">
+        <label>Minutes:</label>
+        <input type="number" id="minutes" min="0" max="59" required />
+      </div>
+    </div>
+
+    <button type="submit">Add Entry</button>
+  </form>
+
+  <h2>Summary</h2>
+  <ul id="summaryList"></ul>
+  
+  <h2>Analytics</h2>
+  <div id="weeklyAnalytics">
+    <h3>This Week's Summary</h3>
+    <div class="chart-container">
+      <div class="chart-section">
+        <h4>Hours by Category</h4>
+        <canvas id="pieChart" width="300" height="300"></canvas>
+      </div>
+      <div class="chart-section">
+        <h4>Daily Hours</h4>
+        <canvas id="barChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+    
+    <h3>Week-to-Week Comparison (Last 3 Weeks)</h3>
+    <div class="comparison-controls">
+      <button onclick="showMonthComparison()">Month</button>
+    </div>
+    <div id="weekComparisonResults"></div>
+    
+    <div id="monthComparisonResults" style="display: none;"></div>
+  </div>
+
+  <h2>Export Logs</h2>
+  <div class="export-controls">
+    <div class="input-group">
+      <label>Category:</label>
+      <select id="exportCategory">
+        <option value="">All Categories</option>
+        <option value="Paying Work">Paying Work</option>
+        <option value="Pro Bono Work">Pro Bono Work</option>
+        <option value="Personal Project">Personal Project</option>
+        <option value="Personal Care">Personal Care</option>
+        <option value="Language Learning">Language Learning</option>
+        <option value="Career Improvement">Career Improvement</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Period:</label>
+      <select id="exportPeriod">
+        <option value="all">All Time</option>
+        <option value="quarter">This Quarter</option>
+      </select>
+    </div>
+    <button onclick="exportLogs()">Export CSV</button>
+  </div>
+
+  <h2>Calendar View</h2>
+  <div id="calendarControls">
+    <button onclick="changeMonth(-1)">← Previous</button>
+    <span id="currentMonth"></span>
+    <button onclick="changeMonth(1)">Next →</button>
+  </div>
+  <div id="calendar"></div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h3>Edit Entry</h3>
+      <form id="editForm">
+        <input type="hidden" id="editIndex">
+        <label>Category:</label>
+        <select id="editCategory">
+          <option>Paying Work</option>
+          <option>Pro Bono Work</option>
+          <option>Personal Project</option>
+          <option>Personal Care</option>
+          <option>Language Learning</option>
+          <option>Career Improvement</option>
+        </select>
+        <label>Project Notes:</label>
+        <input type="text" id="editNotes" placeholder="Project name, task...">
+        <label>Hours:</label>
+        <input type="number" id="editHours" min="0" max="23" value="0">
+        <label>Minutes:</label>
+        <input type="number" id="editMinutes" min="0" max="59" required>
+        <label>Date:</label>
+        <input type="date" id="editDate" required>
+        <div class="modal-buttons">
+          <button type="submit">Save Changes</button>
+          <button type="button" onclick="deleteEntry()">Delete Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
