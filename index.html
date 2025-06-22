@@ -12,7 +12,7 @@
   <form id="logForm">
     <label>Category:</label>
     <select id="category">
-      <option>Work</option>
+      <option>Paying Work</option>
       <option>Pro Bono Work</option>
       <option>Personal Project</option>
       <option>Personal Care</option>
@@ -34,7 +34,12 @@
       </div>
       <div class="input-group">
         <label>Minutes:</label>
-        <input type="number" id="minutes" min="0" max="59" required />
+        <select id="minutes">
+          <option value="0">0</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
       </div>
     </div>
 
@@ -46,7 +51,12 @@
   
   <h2>Analytics</h2>
   <div id="weeklyAnalytics">
-    <h3>This Week's Summary</h3>
+    <div class="week-navigation">
+      <button onclick="changeWeek(-1)" id="prevWeekBtn">← Previous</button>
+      <div class="current-week-label" id="currentWeekLabel">This Week</div>
+      <button onclick="changeWeek(1)" id="nextWeekBtn">Next →</button>
+    </div>
+    <h3 id="weekTitle">This Week's Summary</h3>
     <div class="chart-container">
       <div class="chart-section">
         <h4>Hours by Category</h4>
@@ -88,7 +98,9 @@
         <option value="quarter">This Quarter</option>
       </select>
     </div>
-    <button onclick="exportLogs()">Export CSV</button>
+    <div class="input-group">
+      <button onclick="exportLogs()">Export CSV</button>
+    </div>
   </div>
 
   <h2>Calendar View</h2>
@@ -120,7 +132,12 @@
         <label>Hours:</label>
         <input type="number" id="editHours" min="0" max="23" value="0">
         <label>Minutes:</label>
-        <input type="number" id="editMinutes" min="0" max="59" required>
+        <select id="editMinutes">
+          <option value="0">0</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
         <label>Date:</label>
         <input type="date" id="editDate" required>
         <div class="modal-buttons">
